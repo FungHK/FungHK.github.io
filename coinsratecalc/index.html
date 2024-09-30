@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Coins Convertor</title>
+
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-family: Verdana, sans-serif;
+                background-color: #181c14;
+                color: #ecdfcc;
+            }
+
+            main {
+                display: flex;
+                justify-content: center;
+            }
+
+            input {
+                font-size: 20px;
+                text-align: center;
+                background-color: #3c3d37;
+                color: #ecdfcc;
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Firefox */
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+
+            .board {
+                padding-top: 20vh;
+                width: 300px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                row-gap: 10px;
+            }
+
+            button {
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="board">
+                <h1>Coins Convertor</h1>
+                <span>Coins (M)</span>
+                <input type="number" id="coins" placeholder="Coins (M)" />
+                <span>HKD$</span>
+                <input type="number" id="hkd" placeholder="HKD$" />
+                <span id="message"></span>
+                <span id="formula"></span>
+            </div>
+        </main>
+        <script>
+            const coinsField = document.getElementById("coins");
+            const hkdField = document.getElementById("hkd");
+            const message = document.getElementById("message");
+            const formula = document.getElementById("formula");
+
+            const rates = [
+                [100, 0.28],
+                [400, 0.25],
+                [500, 0.22],
+                [200000, 0.18],
+            ];
+
+            coinsField.addEventListener("input", () => {
+                let hkd = 0;
+                let coins = parseInt(coinsField.value);
+
+                if (isNaN(coins)) {
+                    message.textContent = "";
+                    formula.textContent = "";
+                    return;
+                }
+
+                for (let current of rates) {
+                    if (coins > current[0]) {
+                        coins -= current[0];
+                        hkd += current[1] * current[0];
+                    } else {
+                        hkd += coins * current[1];
+                        break;
+                    }
+                }
+
+                message.textContent = coins + "M = $" + hkd.toFixed(2);
+            });
+
+            hkdField.addEventListener("input", () => {
+                let coins = 0;
+                let hkd = parseInt(hkdField.value);
+
+                if (isNaN(hkd)) {
+                    message.textContent = "";
+                    formula.textContent = "";
+                    return;
+                }
+
+                for (let current of rates) {
+                    let full = current[0] * current[1];
+                    if (hkd > full) {
+                        coins += current[0];
+                        hkd -= full;
+                    } else {
+                        coins += hkd / current[1];
+                        break;
+                    }
+                }
+
+                message.textContent = "$" + hkd + " = " + Math.ceil(coins) + "M";
+            });
+        </script>
+    </body>
+</html>
