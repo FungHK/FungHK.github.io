@@ -101,6 +101,7 @@
             coinsField.addEventListener("input", () => {
                 let hkd = 0;
                 let coins = parseInt(coinsField.value);
+                let oringal = coins;
                 let formulas = [];
 
                 if (isNaN(coins)) {
@@ -123,14 +124,15 @@
                 }
                 formulaText.textContent = "$" + toFixed(hkd, 2);
                 formula.textContent = formulas.join(" + ");
-                message.textContent = coinsField.value + "M = $" + toFixed(hkd, 2);
-                message.textContent = "$" + toFixed(hkd, 1) + " = " + coinsField.value + "M";
+                message.textContent = oringal + "M = $" + toFixed(hkd, 2);
+                message.textContent = "$" + toFixed(hkd, 1) + " = " + oringal + "M";
                 formulaField.hidden = false;
             });
 
             hkdField.addEventListener("input", () => {
                 let coins = 0;
                 let hkd = parseInt(hkdField.value);
+                let oringal = hkd;
                 let formulas = [];
 
                 if (isNaN(hkd)) {
@@ -154,8 +156,8 @@
                         break;
                     }
                 }
-                formulaText.textContent = "$" + hkdField.value;
-                message.textContent = "$" + hkdField.value + " = " + toFixed(coins, 1) + "M";
+                formulaText.textContent = "$" + oringal;
+                message.textContent = "$" + oringal + " = " + toFixed(coins, 1) + "M";
                 formula.textContent = formulas.join(" + ");
                 formulaField.hidden = false;
             });
