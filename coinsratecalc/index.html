@@ -97,7 +97,7 @@
                     }
                 }
 
-                message.textContent = coins + "M = $" + hkd.toFixed(2);
+                message.textContent = coinsField.value + "M = $" + hkd.toFixed(2);
             });
 
             hkdField.addEventListener("input", () => {
@@ -121,7 +121,7 @@
                     }
                 }
 
-                message.textContent = "$" + hkd + " = " + Math.ceil(coins) + "M";
+                message.textContent = "$" + hkdField.value + " = " + coins.toFixed(1) + "M";
             });
         </script>
     </body>
