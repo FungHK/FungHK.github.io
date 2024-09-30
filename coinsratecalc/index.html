@@ -100,7 +100,7 @@
 
             coinsField.addEventListener("input", () => {
                 let hkd = 0;
-                let coins = parseInt(coinsField.value);
+                let coins = parseFloat(coinsField.value);
                 let oringal = coins;
                 let formulas = [];
 
@@ -122,16 +122,17 @@
                         break;
                     }
                 }
-                formulaText.textContent = "$" + toFixed(hkd, 2);
+                hkd = toFixed(hkd, 2);
+                formulaText.textContent = "$" + hkd;
                 formula.textContent = formulas.join(" + ");
-                message.textContent = oringal + "M = $" + toFixed(hkd, 2);
-                message.textContent = "$" + toFixed(hkd, 1) + " = " + oringal + "M";
+                message.textContent = oringal + "M = $" + hkd;
+                message.textContent = "$" + hkd + " = " + oringal + "M";
                 formulaField.hidden = false;
             });
 
             hkdField.addEventListener("input", () => {
                 let coins = 0;
-                let hkd = parseInt(hkdField.value);
+                let hkd = parseFloat(hkdField.value);
                 let oringal = hkd;
                 let formulas = [];
 
